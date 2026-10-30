@@ -1,0 +1,65 @@
+{
+    "name": "GTN Shot Planner",
+    "library_schema_version": "0.1.0",
+    "metadata": {
+        "author": "Griptape Community",
+        "description": "Seedance Omni Prompt V9 and Image Omni Prompt: compose @ mentions for imported media and push the prompt plus ordered references into Seedance or image-generation nodes.",
+        "library_version": "0.1.0",
+        "engine_version": "0.67.0",
+        "tags": [
+            "Griptape",
+            "Seedance",
+            "Prompt",
+            "Image",
+            "Video"
+        ],
+        "dependencies": {
+            "pip_dependencies": [
+                "imageio-ffmpeg>=0.4.9"
+            ]
+        }
+    },
+    "settings": [],
+    "categories": [
+        {
+            "ShotPlanner": {
+                "color": "border-teal-500",
+                "title": "Shot Planner",
+                "description": "Prompt composers for Seedance and image generation",
+                "icon": "Clapperboard"
+            }
+        }
+    ],
+    "widgets": [
+        {
+            "name": "SeedancePromptV9Widget",
+            "path": "SeedancePromptV9Widget.js",
+            "description": "V8 board that sends to both Seedance 2.0 (9 images / 3 videos / 3 audio, fixed video slots) and Seedance 2.5 (30 / 10 / 10 reference lists). The meter follows the selected target."
+        },
+        {
+            "name": "ImageGenPromptWidget",
+            "path": "ImageGenPromptWidget.js",
+            "description": "V5-style prompt editor for image generation: @ mention workflow images, drag to reorder, and a Send to Image Gen button that pushes prompt + references into Nano Banana / GPT Image / Seedream nodes."
+        }
+    ],
+    "nodes": [
+        {
+            "class_name": "SeedanceOmniPromptV9Node",
+            "file_path": "seedance_omni_prompt_v9_node.py",
+            "metadata": {
+                "category": "ShotPlanner",
+                "description": "V8 that also drives Seedance 2.0: 2.5 nodes still get 30 images / 10 videos / 10 audio lists; 2.0 nodes are switched to Multimodal References and filled at 9 / 3 / 3, with videos written to reference_video_1..3.",
+                "display_name": "Seedance Omni Prompt V9"
+            }
+        },
+        {
+            "class_name": "ImageOmniPromptNode",
+            "file_path": "image_omni_prompt_node.py",
+            "metadata": {
+                "category": "ShotPlanner",
+                "description": "Seedance V5 process for image generation: scans the workflow for imported images, @ mention them in the prompt, then Send to Image Gen writes the prompt + ordered reference images directly into every (or one selected) Nano Banana / GPT Image / Seedream node.",
+                "display_name": "Image Omni Prompt"
+            }
+        }
+    ]
+}
